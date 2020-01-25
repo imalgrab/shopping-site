@@ -1,0 +1,34 @@
+html
+    head
+        link(rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,700")
+        link(rel="stylesheet" href="/css/main.css")
+    body
+        h1 
+            | Rejestracja
+            .wrapper
+                form(action="/register" method="post")
+                    table
+                        tr
+                            td
+                                label(for="username") Nazwa użytkownika:
+                        tr
+                            td
+                                input#username(type='text' name='username')
+                        tr
+                            td
+                                label(for="email") Adres e-mail:
+                        tr
+                            td
+                                input#email(type='email' name='email')
+                        tr
+                            td
+                                label(for="password") Hasło:
+                        tr
+                            td
+                                input#password(type='password' name='password')
+                        tr
+                            td
+                                button#register(type='submit' name='register') Zarejestruj
+
+
+
