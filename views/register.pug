@@ -8,6 +8,11 @@ html
             .wrapper
                 form(action="/register" method="post")
                     table
+                        if (errors.length)
+                            each error in errors
+                                tr
+                                    td
+                                        label.errorLbl #{error}
                         tr
                             td
                                 label(for="username") Nazwa użytkownika:
@@ -29,6 +34,3 @@ html
                         tr
                             td
                                 button#register(type='submit' name='register') Zarejestruj
-
-
-

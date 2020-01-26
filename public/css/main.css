@@ -10,9 +10,11 @@ body {
     justify-content: center;
     align-items: center;
     height: 75vh;
+    position: relative;
 }
 
 .errorLbl {
+    font-size: small;
     color: red;
 }
 
