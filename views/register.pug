@@ -3,11 +3,21 @@ html
         link(rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,700")
         link(rel="stylesheet" href="/css/main.css")
     body
+        .navbar
+            ul
+                li
+                    a(href='/').nav-elem Home |
+                li
+                    a(href='register').nav-elem#active Register |
+                li
+                    a(href='login').nav-elem Login |
+                li
+                    a(href='#').nav-elem Test |
         h1 
             | Rejestracja
             .wrapper
                 form(action="/register" method="post")
-                    table
+                    table.loginPanel
                         if (errors.length)
                             each error in errors
                                 tr

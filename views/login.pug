@@ -3,11 +3,26 @@ html
         link(rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,700")
         link(rel="stylesheet" href="/css/main.css")
 body
+    .navbar
+        ul
+            li
+                a(href='/').nav-elem Home |
+            li
+                a(href='register').nav-elem Register |
+            li
+                a(href='login').nav-elem#active Login |
+            li
+                a(href='#').nav-elem Test |
     h1 
         | Logowanie
     .wrapper
         form(action="/login" method="post")  
-            table
+            table.loginPanel
+                if (success_msg.length)
+                    each msg in success_msg
+                        tr
+                            td
+                                label.successLbl #{msg}
                 if (errors.length)
                     each error in errors
                         tr

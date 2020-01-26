@@ -4,7 +4,9 @@ const PagesController = require('../controllers/PagesController');
 const ApplicationsController = require('../controllers/ApplicationsController');
 const DatabaseController = require('../controllers/DatabaseController');
 
-router.get('/', PagesController.home);
+router.get('/',
+    DatabaseController.getItems,
+    PagesController.home);
 
 router.get('/register', PagesController.register);
 
@@ -17,6 +19,7 @@ router.get('/login', PagesController.login);
 
 router.post('/login',
     DatabaseController.validateUser,
+    DatabaseController.getItems,
     ApplicationsController.signIn);
 
 module.exports = router;

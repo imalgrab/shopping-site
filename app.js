@@ -18,11 +18,12 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(cookieParser());
 
+app.set('trust proxy', 1); // trust first proxy
 app.use(session({
-    secret: 'signup',
+    secret: 'keyboard cat',
     resave: false,
     saveUninitialized: true,
-    cookie: {}
+    cookie: { secure: true }
 }));
 
 app.use(flash());

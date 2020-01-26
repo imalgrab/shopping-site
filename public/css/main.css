@@ -5,6 +5,39 @@ body {
     font-family: 'Montserrat', sans-serif;
 }
 
+ul {
+    list-style-type: none;
+}
+
+li {
+    display: inline-block;
+    padding: 20px;
+}
+
+ul.book-box {
+    width: 180px;
+    height: 300px;
+    background: darksalmon;
+    margin: 5px;
+}
+
+li.book-container {
+    display: block;
+    padding: 5;
+    font-size: 14;
+}
+
+li.book-container#title {
+    font-size: 16;
+    font-weight: bold;
+}
+
+.loginPanel {
+    background-color: #935529;
+    width: 300px;
+    height: 150px;
+}
+
 .wrapper {
     display: flex;
     justify-content: center;
@@ -15,16 +48,35 @@ body {
 
 .errorLbl {
     font-size: small;
-    color: red;
+    color: darkred;
 }
 
-ul {
-    list-style-type: none;
+.successLbl {
+    font-size: small;
+    color: green;
 }
 
-li {
-    display: inline-block;
-    padding: 20px;
+.navbar {
+    background-color: #111;
+}
+
+.nav-elem,
+.nav-elem:visited {
+    height: 160px;
+    width: 160px;
+    /* font-size: 18px; */
+    color: white;
+    text-decoration: none;
+}
+
+.nav-elem#active {
+    font-weight: bold;
+    color: orange;
+}
+
+.nav-elem:hover {
+    color: #ff6f61;
+    cursor: pointer;
 }
 
 h1 {

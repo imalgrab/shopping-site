@@ -5,7 +5,11 @@ exports.signUp = (req, res) => {
             errors: req.body.errors
         });
     } else {
-        res.render('login');
+        req.flash('success_msg', 'Pomyślnie zarejestrowano, możesz się zalogować');
+        res.render('login', {
+            errors: req.flash('errors'),
+            success_msg: req.flash('success_msg')
+        });
     }
 };
 
@@ -13,11 +17,14 @@ exports.signIn = (req, res) => {
     const errors = req.body.errors;
     if (errors.length) {
         res.render('login', {
-            errors: req.body.errors
+            errors: req.body.errors,
+            success_msg: req.flash('success_msg')
         });
     } else {
+        req.session.username = req.body.username;
         res.render('home', {
-            userInfo: req.flash('userInfo')
+            books: req.flash('booksCatalog'),
+            username: req.session.username
         });
     }
 };

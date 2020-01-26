@@ -1,22 +1,31 @@
 html
     head
+        meta(charset="utf-8")
         link(rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,700")
         link(rel="stylesheet" href="/css/main.css")
     body
         .navbar
             ul
                 li
-                    div.tile(onclick='/')
-                        | Home
+                    a(href='/').nav-elem#active Home |
                 li
-                    .tile(href='register')
-                        | Register
+                    a(href='register').nav-elem Register |
                 li
-                    .tile(onclick='login')
-                        | Login
+                    a(href='login').nav-elem Login |
                 li
-                    .tile
-                        | Test
+                    a(href='#').nav-elem Test |
+        if (username)
+            | Witaj, #{username}!
         .wrapper
-            h1
-                | Home page
+            if (books.length)
+                each book in books
+                    ul.book-box
+                        li.book-container
+                            - var path  = book.img;
+                            img(src=path width="100" heigth="100")
+                        li.book-container#title
+                            | #{book.title}
+                        li.book-container
+                            | #{book.author}
+                        li.book-container
+                            | #{book.genre}

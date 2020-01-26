@@ -65,7 +65,6 @@ exports.validateUser = (req, res, next) => {
                 const hash = res.rows[0].hash;
                 if (bcrypt.compareSync(password, hash)) {
                     req.body.errors = errors;
-                    req.flash('userInfo', username);
                     next();
                 } else {
                     errors.push('Zła nazwa użytkownika lub hasło');
@@ -77,6 +76,35 @@ exports.validateUser = (req, res, next) => {
                 req.body.errors = errors;
                 next();
             }
+        })
+        .catch(error => {
+            console.log(error);
+        });
+};
+
+exports.getItems = (req, res, next) => {
+    const pool = new pg.Pool({
+        host: 'localhost',
+        port: 5432,
+        database: 'ShopCatalog',
+        user: 'weppo',
+        password: 'weppo'
+    });
+    pool
+        .query('SELECT * FROM books')
+        .then(res => {
+            let books = [];
+            res.rows.forEach(r => {
+                console.log(r.title);
+                books.push({
+                    title: r.title,
+                    author: r.author,
+                    genre: r.genre,
+                    img: r.img
+                });
+            });
+            req.flash('booksCatalog', books);
+            next();
         })
         .catch(error => {
             console.log(error);
