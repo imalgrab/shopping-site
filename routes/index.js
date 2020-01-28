@@ -22,4 +22,14 @@ router.post('/login',
     DatabaseController.getItems,
     ApplicationsController.signIn);
 
+router.get('/logout',
+    ApplicationsController.logOut);
+
+router.get('/basket',
+    ApplicationsController.basket);
+
+router.get('/addToCart/:id',
+    DatabaseController.getItems,
+    ApplicationsController.addToCart);
+
 module.exports = router;

@@ -3,29 +3,50 @@ html
         meta(charset="utf-8")
         link(rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,700")
         link(rel="stylesheet" href="/css/main.css")
+        script(src="https://kit.fontawesome.com/224a92adf2.js" crossorigin="anonymous")
     body
         .navbar
             ul
                 li
-                    a(href='/').nav-elem#active Home |
+                    a(href='/').nav-elem.logo#active BookHub |
                 li
-                    a(href='register').nav-elem Register |
-                li
-                    a(href='login').nav-elem Login |
+                    a(href='/').nav-elem Home |
                 li
                     a(href='#').nav-elem Test |
-        if (username)
-            | Witaj, #{username}!
+                if (username)
+                    li
+                        a(href="basket")
+                            i.fas.fa-shopping-cart.nav-elem
+
+                    .right
+                        li
+                            a(href='logout').nav-elem Logout |
+                else
+                    .right
+                        li
+                            a(href='login').nav-elem Login |
+                        li
+                            a(href='register').nav-elem Register |
+
+        div
+            if (username)
+                | Witaj, #{username}!
         .wrapper
-            if (books.length)
-                each book in books
-                    ul.book-box
-                        li.book-container
-                            - var path  = book.img;
-                            img(src=path width="100" heigth="100")
-                        li.book-container#title
-                            | #{book.title}
-                        li.book-container
-                            | #{book.author}
-                        li.book-container
-                            | #{book.genre}
+            .bookshelf
+                if (books.length)
+                    - var i = 0;
+                    each book in books
+                        ul.book-box
+                            li.book-container
+                                - var path = book.img;
+                                img(src=path width="100" heigth="100")
+                            li.book-container.book-title
+                                | #{book.title}
+                            li.book-container
+                                | #{book.author}
+                            li.book-container
+                                | #{book.genre}
+                            li.book-container
+                            a(href="addToCart/" + i)
+                                i(class="fas fa-shopping-basket" onclick="home" id=i)
+                        - i += 1

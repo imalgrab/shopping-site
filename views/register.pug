@@ -6,13 +6,18 @@ html
         .navbar
             ul
                 li
+                    a(href='/').nav-elem.logo BookHub |
+                li
                     a(href='/').nav-elem Home |
                 li
-                    a(href='register').nav-elem#active Register |
-                li
-                    a(href='login').nav-elem Login |
-                li
                     a(href='#').nav-elem Test |
+                li
+                    i.fas.fa-shopping-cart.nav-elem
+                .right
+                    li
+                        a(href='login').nav-elem Login |
+                    li
+                        a(href='register').nav-elem#active Register |
         h1 
             | Rejestracja
             .wrapper

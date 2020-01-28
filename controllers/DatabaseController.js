@@ -95,7 +95,6 @@ exports.getItems = (req, res, next) => {
         .then(res => {
             let books = [];
             res.rows.forEach(r => {
-                console.log(r.title);
                 books.push({
                     title: r.title,
                     author: r.author,

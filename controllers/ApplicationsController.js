@@ -21,12 +21,49 @@ exports.signIn = (req, res) => {
             success_msg: req.flash('success_msg')
         });
     } else {
-        req.session.username = req.body.username;
+        const username = req.body.username;
+        const basket = [];
+        req.session.user = {
+            username,
+            basket
+        };
+        // console.log(req.session);
         res.render('home', {
             books: req.flash('booksCatalog'),
-            username: req.session.username
+            username: req.session.user.username
         });
     }
+};
+
+exports.logOut = (req, res) => {
+    req.session.destroy((err) => {
+        if (err) {
+            console.log(err);
+        } else {
+            res.redirect('/');
+        }
+    });
+};
+
+exports.basket = (req, res) => {
+    const basket = req.session.user.basket;
+    const username = req.session.user.username;
+    console.log(username);
+    res.render('basket', {
+        basket,
+        username
+    });
+};
+
+exports.addToCart = (req, res) => {
+    if (req.session.user) {
+        let basket = req.session.user.basket;
+        let id = req.params.id;
+        const books = req.flash('booksCatalog');
+        req.session.user.basket.push(books[id]);
+        console.log(req.session.user.basket);
+    }
+    res.redirect('/');
 };
 
 exports.validateData = (req, res, next) => {

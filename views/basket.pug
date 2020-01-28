@@ -1,0 +1,40 @@
+html
+    head
+        meta(charset="utf-8")
+        link(rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,700")
+        link(rel="stylesheet" href="/css/main.css")
+        script(src="https://kit.fontawesome.com/224a92adf2.js" crossorigin="anonymous")
+    body
+        .navbar
+            ul
+                li
+                    a(href='/').nav-elem.logo BookHub |
+                li
+                    a(href='/').nav-elem Home |
+                li
+                    a(href='#').nav-elem Test |
+                li
+                    i.fas.fa-shopping-cart.nav-elem#active
+                .right
+                    li
+                        a(href='logout').nav-elem Logout |
+
+        div
+            | Witaj, #{username}!
+        .wrapper
+            .bookshelf
+                if (basket)
+                    each book in basket
+                        ul.book-box
+                            li.book-container
+                                - var path = book.img;
+                                img(src=path width="100" heigth="100")
+                            li.book-container.book-title
+                                | #{book.title}
+                            li.book-container
+                                | #{book.author}
+                            li.book-container
+                                | #{book.genre}
+                else
+                    h1
+                        | Twój koszyk jest pusty
