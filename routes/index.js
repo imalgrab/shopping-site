@@ -20,7 +20,8 @@ router.get('/login', PagesController.login);
 router.post('/login',
     DatabaseController.validateUser,
     DatabaseController.getItems,
-    ApplicationsController.signIn);
+    ApplicationsController.signIn,
+    PagesController.home);
 
 router.get('/logout',
     ApplicationsController.logOut);

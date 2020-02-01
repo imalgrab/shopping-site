@@ -23,7 +23,7 @@ html
             | Witaj, #{username}!
         .wrapper
             .bookshelf
-                if (basket)
+                if (basket.length)
                     each book in basket
                         ul.book-box
                             li.book-container

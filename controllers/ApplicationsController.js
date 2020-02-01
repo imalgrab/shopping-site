@@ -13,7 +13,7 @@ exports.signUp = (req, res) => {
     }
 };
 
-exports.signIn = (req, res) => {
+exports.signIn = (req, res, next) => {
     const errors = req.body.errors;
     if (errors.length) {
         res.render('login', {
@@ -27,11 +27,7 @@ exports.signIn = (req, res) => {
             username,
             basket
         };
-        // console.log(req.session);
-        res.render('home', {
-            books: req.flash('booksCatalog'),
-            username: req.session.user.username
-        });
+        next();
     }
 };
 
@@ -49,6 +45,7 @@ exports.basket = (req, res) => {
     const basket = req.session.user.basket;
     const username = req.session.user.username;
     console.log(username);
+    console.log(basket);
     res.render('basket', {
         basket,
         username
@@ -57,13 +54,13 @@ exports.basket = (req, res) => {
 
 exports.addToCart = (req, res) => {
     if (req.session.user) {
-        let basket = req.session.user.basket;
         let id = req.params.id;
         const books = req.flash('booksCatalog');
         req.session.user.basket.push(books[id]);
-        console.log(req.session.user.basket);
+        res.redirect('/');
+    } else {
+        res.redirect('/login');
     }
-    res.redirect('/');
 };
 
 exports.validateData = (req, res, next) => {
