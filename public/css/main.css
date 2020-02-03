@@ -1,22 +1,60 @@
 body {
     margin: 0;
-    background: #222;
-    color: #fafafa;
+    background: #f9ecd6;
+    color: #c6b9b4;
     font-family: 'Montserrat', sans-serif;
 }
 
-.logo {
-    font-weight: bold;
-    font-size: 26px;
+form {
+    margin: 0px;
 }
 
-.fa-shopping-cart {
+.fa-shopping-cart,
+.fa-shopping-basket,
+.fa-edit,
+.fa-search {
     font-size: 18px;
+    color: white;
 }
 
-.fa-shopping-basket {
-    font-size: 24px;
+.fa-shopping-cart:hover,
+.fa-shopping-basket:hover,
+.fa-edit:hover,
+.fa-search:hover {
+    color: coral;
 }
+
+.searchInput {
+    height: 25px;
+    width: 250px;
+    background-color: transparent;
+    background-repeat: no-repeat;
+    color: #c6b9b4;
+    font-family: 'Roboto Mono', monospace;
+    border: none;
+    border-bottom: 1px solid white;
+    cursor: pointer;
+    overflow: hidden;
+    outline: none;
+    margin: 10px;
+}
+
+.searchBtn {
+    font-family: 'Roboto Mono', monospace;
+    color: #c6b9b4;
+    background-color: transparent;
+    background-repeat: no-repeat;
+    border: none;
+    cursor: pointer;
+    overflow: hidden;
+    outline: none;
+    margin: 10px;
+}
+
+.searchBtn:hover {
+    color: lightcoral;
+}
+
 
 .fa-shopping-basket:hover {
     cursor: pointer;
@@ -27,7 +65,7 @@ body {
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
-    width: 100vw;
+    width: 60vw;
 }
 
 ul {
@@ -35,18 +73,23 @@ ul {
     padding: 0;
 }
 
-.navbar ul{
+.navbar {
+    font-family: 'Roboto Mono', monospace;
+    font-weight: 300;
+}
+
+.navbar ul {
     position: relative;
 }
+
 .navbar li {
     display: inline-block;
     padding: 20px;
 }
 
 .book-box:hover {
-    box-shadow: 0 0 1em whitesmoke;
+    box-shadow: 0 0 1em coral;
 }
-
 
 ul.book-box {
     justify-content: flex-start;
@@ -55,8 +98,13 @@ ul.book-box {
     flex-direction: column;
     width: 200px;
     height: 300px;
-    background: darksalmon;
+    background: #75414a;
     margin: 5px;
+}
+
+.welcome {
+    margin-left: 15px;
+    font-weight: 700;
 }
 
 li.book-container {
@@ -71,9 +119,7 @@ li.book-container.book-title {
 }
 
 .loginPanel {
-    background-color: #935529;
-    width: 300px;
-    height: 150px;
+    background-color: #75414a;
 }
 
 .wrapper {
@@ -85,12 +131,12 @@ li.book-container.book-title {
 
 .errorLbl {
     font-size: small;
-    color: darkred;
+    color: #c6b9b4;
 }
 
 .successLbl {
     font-size: small;
-    color: green;
+    color: #c6b9b4;
 }
 
 .navbar {
@@ -98,20 +144,25 @@ li.book-container.book-title {
 }
 
 .nav-elem,
-.nav-elem:visited {
-    color: white;
+.nav-elem:visited,
+.fa-shopping-basket,
+.fa-shopping-basket:visited,
+.fa-edit,
+.fa-edit:visited {
+    color: #c6b9b4;
     text-decoration: none;
 }
 
-.right{
+.right {
     position: absolute;
     top: 0;
     right: 0;
 }
 
 .nav-elem#active {
-    font-weight: bold;
-    color: orange;
+    font-weight: 700;
+    font-size: 22px;
+    color: #9c6b6b;
 }
 
 .nav-elem:hover {

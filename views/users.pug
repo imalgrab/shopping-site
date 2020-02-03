@@ -1,0 +1,28 @@
+html
+    head
+        meta(charset="utf-8")
+        link(rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,700")
+        link(href="https://fonts.googleapis.com/css?family=Roboto+Mono:300,400,700&display=swap" rel="stylesheet")
+        link(rel="stylesheet" href="/css/main.css")
+        script(src="https://kit.fontawesome.com/224a92adf2.js" crossorigin="anonymous")
+    body
+        .navbar
+            ul
+                li
+                    a(href='/').nav-elem.logo#active BookCamp
+                li
+                    | |
+                li
+                    a(href='#').nav-elem Admin panel 
+        .wrapper
+            if (users.length)
+                ul
+                    each user in users
+                        li
+                            | #{user.name}
+                        li 
+                            | #{user.email}
+                        br
+            else
+                h1
+                    | Brak użytkowników

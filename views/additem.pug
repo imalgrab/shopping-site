@@ -1,0 +1,39 @@
+html
+    head
+        meta(charset="utf-8")
+        link(rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,700")
+        link(href="https://fonts.googleapis.com/css?family=Roboto+Mono:300,400,700&display=swap" rel="stylesheet")
+        link(rel="stylesheet" href="/css/main.css")
+        script(src="https://kit.fontawesome.com/224a92adf2.js" crossorigin="anonymous")
+    body
+        .navbar
+            ul
+                li
+                    a(href='/').nav-elem.logo#active BookCamp
+                li
+                    | |
+                li
+                    a(href='#').nav-elem Admin panel 
+        .wrapper
+            form(action="/additem" method="post")
+                table.loginPanel
+                    th
+                        | Dodaj nową książkę:
+                    tr
+                        td
+                            input.searchInput(type='text' name='title' placeholder='tytuł:' required='required')
+                    tr
+                        td
+                            input.searchInput(type='text' name='author' placeholder='autor:' required='required')
+                    tr
+                        td
+                            input.searchInput(type='text' name='genre' placeholder='gatunek:' required='required')
+                    tr
+                        td
+                            input.searchInput(type='text' name='price' placeholder='cena:' required='required')
+                    tr
+                        td
+                            input.searchInput(type='url' name='img' placeholder='url obrazka:' required='required')
+                    tr
+                        td
+                            button.searchBtn(type='submit' name='login') dodaj

@@ -2,33 +2,46 @@ html
     head
         meta(charset="utf-8")
         link(rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,700")
+        link(href="https://fonts.googleapis.com/css?family=Roboto+Mono:300,400,700&display=swap" rel="stylesheet")
         link(rel="stylesheet" href="/css/main.css")
         script(src="https://kit.fontawesome.com/224a92adf2.js" crossorigin="anonymous")
     body
         .navbar
             ul
                 li
-                    a(href='/').nav-elem.logo#active BookHub |
+                    a(href='/').nav-elem.logo#active BookCamp
                 li
-                    a(href='/').nav-elem Home |
+                    | |
                 li
-                    a(href='#').nav-elem Test |
+                    a(href='/').nav-elem Home 
+                li
+                    a(href='#').nav-elem About 
+                li
+                    form(action="search" method="post")
+                        input.searchInput(type='text' name='search' placeholder='Search...')
+                        button.searchBtn(type='submit')
+                            i.fas.fa-search
                 if (username)
-                    li
-                        a(href="basket")
-                            i.fas.fa-shopping-cart.nav-elem
-
                     .right
                         li
-                            a(href='logout').nav-elem Logout |
+                            a(href="basket").nav-elem
+                                i.fas.fa-shopping-cart
+                        li
+                            a(href='logout').nav-elem Logout 
+                //- if (username == "admin")
+                //-     li
+                //-         | Admin panel:
+                //-         select.adminDropDown
+                //-             option(value="XD") XDDDDD
+                //-             option(value="XDD") DDDDDX
+
                 else
                     .right
                         li
-                            a(href='login').nav-elem Login |
+                            a(href='login').nav-elem Login
                         li
-                            a(href='register').nav-elem Register |
-
-        div
+                            a(href='register').nav-elem Register 
+        .welcome
             if (username)
                 | Witaj, #{username}!
         .wrapper
@@ -46,7 +59,15 @@ html
                                 | #{book.author}
                             li.book-container
                                 | #{book.genre}
-                            li.book-container
-                            a(href="addToCart/" + i)
-                                i(class="fas fa-shopping-basket" onclick="home" id=i)
+                            if (username == 'admin')
+                                li.book-container
+                                    a(href="editItem/" + i)
+                                        i.far.fa-edit
                         - i += 1
+                else
+                    h1
+                        | Brak wyników
+
+    foot
+        .wrapper
+            | © Igor Malgrab

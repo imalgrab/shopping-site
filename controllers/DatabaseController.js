@@ -45,6 +45,26 @@ exports.insertUser = (req, res, next) => {
     }
 };
 
+exports.insertItem = (req, res, next) => {
+    const title = req.body.title;
+    const author = req.body.author;
+    const genre = req.body.genre;
+    const img = req.body.img;
+    const pool = new pg.Pool({
+        host: 'localhost',
+        port: 5432,
+        database: 'ShopCatalog',
+        user: 'weppo',
+        password: 'weppo'
+    });
+    pool
+        .query(`INSERT INTO books (title, author, genre, img) values ('${title}', '${author}', '${genre}', '${img}')`)
+        .then()
+        .catch(error => {
+            console.log(error);
+        });
+    next();
+};
 
 exports.validateUser = (req, res, next) => {
     const username = req.body.username;
@@ -103,6 +123,33 @@ exports.getItems = (req, res, next) => {
                 });
             });
             req.flash('booksCatalog', books);
+            next();
+        })
+        .catch(error => {
+            console.log(error);
+        });
+};
+
+
+exports.getUsers = (req, res, next) => {
+    const pool = new pg.Pool({
+        host: 'localhost',
+        port: 5432,
+        database: 'ShopCatalog',
+        user: 'weppo',
+        password: 'weppo'
+    });
+    pool
+        .query('SELECT * FROM users')
+        .then(res => {
+            let users = [];
+            res.rows.forEach(r => {
+                users.push({
+                    name: r.name,
+                    email: r.email,
+                });
+            });
+            req.flash('usersCatalog', users);
             next();
         })
         .catch(error => {

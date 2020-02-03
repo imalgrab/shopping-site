@@ -3,6 +3,7 @@ const router = express.Router();
 const PagesController = require('../controllers/PagesController');
 const ApplicationsController = require('../controllers/ApplicationsController');
 const DatabaseController = require('../controllers/DatabaseController');
+const AdminController = require('../controllers/AdminController');
 
 router.get('/',
     DatabaseController.getItems,
@@ -19,9 +20,8 @@ router.get('/login', PagesController.login);
 
 router.post('/login',
     DatabaseController.validateUser,
-    DatabaseController.getItems,
-    ApplicationsController.signIn,
-    PagesController.home);
+    ApplicationsController.signIn
+);
 
 router.get('/logout',
     ApplicationsController.logOut);
@@ -32,5 +32,29 @@ router.get('/basket',
 router.get('/addToCart/:id',
     DatabaseController.getItems,
     ApplicationsController.addToCart);
+
+router.get('/editItem/:id',
+    DatabaseController.getItems,
+    AdminController.editItem
+);
+
+router.post('/search',
+    DatabaseController.getItems,
+    ApplicationsController.search
+);
+
+router.get('/users',
+    DatabaseController.getUsers,
+    AdminController.showUsers
+);
+
+router.get('/additem',
+    AdminController.addItem
+);
+
+router.post('/additem',
+    DatabaseController.insertItem,
+    AdminController.addItem
+);
 
 module.exports = router;

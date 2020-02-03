@@ -27,7 +27,15 @@ exports.signIn = (req, res, next) => {
             username,
             basket
         };
-        next();
+        let books = req.flash('booksCatalog');
+        if (books.length) {
+            res.render('home', {
+                username,
+                books
+            });
+        } else {
+            res.redirect('/');
+        }
     }
 };
 
@@ -44,8 +52,6 @@ exports.logOut = (req, res) => {
 exports.basket = (req, res) => {
     const basket = req.session.user.basket;
     const username = req.session.user.username;
-    console.log(username);
-    console.log(basket);
     res.render('basket', {
         basket,
         username
@@ -82,4 +88,25 @@ exports.validateData = (req, res, next) => {
     }
     req.body.errors = errors;
     next();
+};
+
+
+exports.search = (req, res, next) => {
+    var query = req.body.search;
+    let certainBooks = [];
+    let books = req.flash('booksCatalog');
+    let username = '';
+    if (req.session.user) {
+        username = req.session.user.username;
+    }
+    books.forEach(book => {
+        if (book.title.includes(query) || book.author.includes(query) || book.genre.includes(query)) {
+            certainBooks.push(book);
+        }
+    });
+    req.flash('certainBooks', certainBooks);
+    res.render('home', {
+        username,
+        books: certainBooks
+    });
 };

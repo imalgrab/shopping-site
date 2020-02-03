@@ -2,22 +2,23 @@ html
     head
         link(rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,700")
         link(rel="stylesheet" href="/css/main.css")
+        link(href="https://fonts.googleapis.com/css?family=Roboto+Mono&display=swap" rel="stylesheet")
 body
     .navbar
         ul
             li
-                a(href='/').nav-elem.logo BookHub |
+                a(href='/').nav-elem.logo BookCamp |
             li
-                a(href='/').nav-elem Home |
+                a(href='/').nav-elem Home 
             li
-                a(href='#').nav-elem Test |
+                a(href='#').nav-elem About 
             li
                 i.fas.fa-shopping-cart.nav-elem
             .right
                 li
-                    a(href='login').nav-elem#active Login |
+                    a(href='login').nav-elem#active Login
                 li
-                    a(href='register').nav-elem Register |
+                    a(href='register').nav-elem Register 
     h1 
         | Logowanie
     .wrapper
@@ -35,16 +36,10 @@ body
                                 label.errorLbl #{error}
                 tr
                     td
-                        label(for="username") Nazwa użytkownika:
+                        input.searchInput#username(type='text' name='username' placeholder='nazwa użytkownika:')
                 tr
                     td
-                        input#username(type='text' name='username')
+                        input.searchInput#password(type='password' name='password' placeholder='hasło:')
                 tr
                     td
-                        label(for="password") Hasło:
-                tr
-                    td
-                        input#password(type='password' name='password')
-                tr
-                    td
-                        button#login(type='submit' name='login') Zaloguj
+                        button.searchBtn#login(type='submit' name='login') zaloguj

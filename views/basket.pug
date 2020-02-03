@@ -4,20 +4,21 @@ html
         link(rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,700")
         link(rel="stylesheet" href="/css/main.css")
         script(src="https://kit.fontawesome.com/224a92adf2.js" crossorigin="anonymous")
+        link(href="https://fonts.googleapis.com/css?family=Roboto+Mono&display=swap" rel="stylesheet")
     body
         .navbar
             ul
                 li
-                    a(href='/').nav-elem.logo BookHub |
+                    a(href='/').nav-elem.logo BookCamp |
                 li
-                    a(href='/').nav-elem Home |
+                    a(href='/').nav-elem Home 
                 li
-                    a(href='#').nav-elem Test |
-                li
-                    i.fas.fa-shopping-cart.nav-elem#active
+                    a(href='#').nav-elem About 
                 .right
                     li
-                        a(href='logout').nav-elem Logout |
+                        i.fas.fa-shopping-cart.nav-elem#active
+                    li
+                        a(href='logout').nav-elem Logout 
 
         div
             | Witaj, #{username}!
