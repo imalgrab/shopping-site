@@ -18,8 +18,8 @@ html
                     a(href='#').nav-elem About 
                 li
                     form(action="search" method="post")
-                        input.searchInput(type='text' name='search' placeholder='Search...')
-                        button.searchBtn(type='submit')
+                        input.nav-elem.searchInput(type='text' name='search' placeholder='Search...')
+                        button.nav-elem.searchBtn(type='submit')
                             i.fas.fa-search
                 if (username)
                     .right
@@ -28,22 +28,23 @@ html
                                 i.fas.fa-shopping-cart
                         li
                             a(href='logout').nav-elem Logout 
-                //- if (username == "admin")
-                //-     li
-                //-         | Admin panel:
-                //-         select.adminDropDown
-                //-             option(value="XD") XDDDDD
-                //-             option(value="XDD") DDDDDX
-
                 else
                     .right
                         li
                             a(href='login').nav-elem Login
                         li
                             a(href='register').nav-elem Register 
+                if (username == "admin")
+                    li
+                        select.adminDropDown(onchange=this.value)
+                            option(value="users") Lista użytkowników
+                            option(value="#") Lista zamówień
+                            option(value="additem") Dodaj przedmiot
         .welcome
             if (username)
                 | Witaj, #{username}!
+            if (success_msg)
+                |#{success_msg}
         .wrapper
             .bookshelf
                 if (books.length)
@@ -59,10 +60,16 @@ html
                                 | #{book.author}
                             li.book-container
                                 | #{book.genre}
+                            li.book-container
+                                | #{book.price} PLN
                             if (username == 'admin')
                                 li.book-container
                                     a(href="editItem/" + i)
                                         i.far.fa-edit
+                            else
+                                li.book-container
+                                    a(href="addToCart/" + i)
+                                        i.fas.fa-shopping-basket
                         - i += 1
                 else
                     h1
@@ -70,4 +77,4 @@ html
 
     foot
         .wrapper
-            | © Igor Malgrab
+            | © Maciek Okupnik, Igor Malgrab xd

@@ -15,25 +15,26 @@ html
                 li
                     a(href='#').nav-elem Admin panel 
         .wrapper
-            form(action="/additem" method="post")
+            - var new_id = id - 1;
+            form(action="/editItem/" + new_id method="post")
                 table.loginPanel
                     th
-                        | Dodaj nową książkę:
+                        | Edytuj książkę:
                     tr
                         td
-                            input.searchInput(type='text' name='title' placeholder='tytuł:' required='required')
+                            input.searchInput(type='text' name='title' value=book.title required='required')
                     tr
                         td
-                            input.searchInput(type='text' name='author' placeholder='autor:' required='required')
+                            input.searchInput(type='text' name='author' value=book.author required='required')
                     tr
                         td
-                            input.searchInput(type='text' name='genre' placeholder='gatunek:' required='required')
+                            input.searchInput(type='text' name='genre' value=book.genre required='required')
                     tr
                         td
-                            input.searchInput(type='text' name='price' placeholder='cena:' required='required')
+                            input.searchInput(type='text' name='price' placeholder='cena:' value=book.price)
                     tr
                         td
-                            input.searchInput(type='url' name='img' placeholder='url obrazka:' required='required')
+                            input.searchInput(type='url' name='img' value=book.img required='required')
                     tr
                         td
-                            button.searchBtn(type='submit' name='add') dodaj
+                            button.searchBtn(type='submit' name='edit') edytuj

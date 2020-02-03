@@ -35,7 +35,11 @@ router.get('/addToCart/:id',
 
 router.get('/editItem/:id',
     DatabaseController.getItems,
-    AdminController.editItem
+    AdminController.editItem);
+
+router.post('/editItem/:id',
+    DatabaseController.editItem,
+    PagesController.home
 );
 
 router.post('/search',

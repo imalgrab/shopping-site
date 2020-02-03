@@ -50,6 +50,7 @@ exports.insertItem = (req, res, next) => {
     const author = req.body.author;
     const genre = req.body.genre;
     const img = req.body.img;
+    const price = req.body.price;
     const pool = new pg.Pool({
         host: 'localhost',
         port: 5432,
@@ -58,11 +59,35 @@ exports.insertItem = (req, res, next) => {
         password: 'weppo'
     });
     pool
-        .query(`INSERT INTO books (title, author, genre, img) values ('${title}', '${author}', '${genre}', '${img}')`)
+        .query(`INSERT INTO books (title, author, genre, price, img) values ('${title}', '${author}', '${genre}', '${price}', '${img}')`)
         .then()
         .catch(error => {
             console.log(error);
         });
+    next();
+};
+
+exports.editItem = (req, res, next) => {
+    const id = parseInt(req.params.id) + 1;
+    let title = req.body.title;
+    let author = req.body.author;
+    let genre = req.body.genre;
+    let price = req.body.price;
+    let img = req.body.img;
+    const pool = new pg.Pool({
+        host: 'localhost',
+        port: 5432,
+        database: 'ShopCatalog',
+        user: 'weppo',
+        password: 'weppo'
+    });
+    pool
+        .query(`UPDATE books set title = '${title}', author = '${author}', genre = '${genre}', price = '${price}', img = '${img}' where id = '${id}'`)
+        .then()
+        .catch(error => {
+            console.log(error);
+        });
+    req.flash('success_msg', 'Pomyślnie edytowano przedmiot!');
     next();
 };
 
@@ -111,7 +136,7 @@ exports.getItems = (req, res, next) => {
         password: 'weppo'
     });
     pool
-        .query('SELECT * FROM books')
+        .query('SELECT * FROM books ORDER BY id ASC')
         .then(res => {
             let books = [];
             res.rows.forEach(r => {
@@ -119,6 +144,7 @@ exports.getItems = (req, res, next) => {
                     title: r.title,
                     author: r.author,
                     genre: r.genre,
+                    price: r.price,
                     img: r.img
                 });
             });

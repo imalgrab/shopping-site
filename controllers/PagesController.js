@@ -5,7 +5,8 @@ exports.home = (req, res) => {
     }
     res.render('home', {
         books: req.flash('booksCatalog'),
-        username
+        username,
+        success_msg: req.flash('success_add')
     });
 };
 
