@@ -29,14 +29,16 @@ html
                         li
                             a(href='logout') Logout
             .content
-                if (users.length)
+                if (orders.length)
                     ul
-                        each user in users
+                        each order in orders
                             li
-                                | #{user.name}
+                                | #{order.id}
                             li 
-                                | #{user.email}
+                                | #{order.name}
+                            li 
+                                | #{order.bookids}
                             br
                 else
                     h1
-                        | Brak użytkowników
+                        | Brak zamówień

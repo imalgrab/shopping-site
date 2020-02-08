@@ -1,41 +1,57 @@
 html
     head
         meta(charset="utf-8")
-        link(rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,700")
         link(rel="stylesheet" href="/css/main.css")
-        script(src="https://kit.fontawesome.com/224a92adf2.js" crossorigin="anonymous")
-        link(href="https://fonts.googleapis.com/css?family=Roboto+Mono&display=swap" rel="stylesheet")
+        link(rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,700")
+        link(rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Mono:300,400,700&display=swap")
+        script(crossorigin="anonymous" src="https://kit.fontawesome.com/224a92adf2.js")
+        script(src="/scripts/main.js")
     body
-        .navbar
-            ul
-                li
-                    a(href='/').nav-elem.logo BookCamp |
-                li
-                    a(href='/').nav-elem Home 
-                li
-                    a(href='#').nav-elem About 
-                .right
+        .container
+            .logo
+                h1
+                    | book camp 
+                    i.fas.fa-fire
+            .navbar
+                ul
                     li
-                        i.fas.fa-shopping-cart.nav-elem#active
+                        a(href='/')
+                            i.fas.fa-fire
                     li
-                        a(href='logout').nav-elem Logout 
-
-        div
-            | Witaj, #{username}!
-        .wrapper
-            .bookshelf
-                if (basket.length)
-                    each book in basket
-                        ul.book-box
-                            li.book-container
-                                - var path = book.img;
-                                img(src=path width="100" heigth="100")
-                            li.book-container.book-title
+                        a(href='/') Home 
+                    li
+                        a(href='#') About 
+                    .navbar-side
+                        li.active
+                            a(href="basket")
+                                i.fas.fa-shopping-cart
+                                |  Basket
+                        li
+                            a(href='logout') Logout
+            .content
+            if(basket.items.length)
+                .basketSummary
+                    div
+                        | Witaj, #{username}!
+                    div
+                        | Masz #{basket.numOfItems} przedmiotów w koszyku
+                    div
+                        | Cena: #{basket.totalPrice} PLN
+                .basketOrder
+                    a(href="makeorder") Złóż zamówienie
+                .basketDetails
+                    each book in basket.items
+                        .product-container
+                            .product-property
+                                - var url = book.img;
+                                img(src=url)
+                            .product-property.title
                                 | #{book.title}
-                            li.book-container
+                            .product-property
                                 | #{book.author}
-                            li.book-container
+                            .product-property
                                 | #{book.genre}
-                else
-                    h1
-                        | Twój koszyk jest pusty
+                            .product-property
+                                | #{book.price} PLN
+            else
+                h1 Twój koszyk jest pusty

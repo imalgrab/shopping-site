@@ -43,13 +43,18 @@ router.post('/editItem/:id',
 );
 
 router.post('/search',
-    DatabaseController.getItems,
+    DatabaseController.getCertainItems,
     ApplicationsController.search
 );
 
 router.get('/users',
     DatabaseController.getUsers,
     AdminController.showUsers
+);
+
+router.get('/orders',
+    DatabaseController.getOrders,
+    AdminController.showOrders
 );
 
 router.get('/additem',
@@ -59,6 +64,10 @@ router.get('/additem',
 router.post('/additem',
     DatabaseController.insertItem,
     AdminController.addItem
+);
+
+router.get('/makeorder',
+    DatabaseController.makeOrder
 );
 
 module.exports = router;

@@ -1,8 +1,8 @@
 exports.signUp = (req, res) => {
-    const errors = req.body.errors;
+    const errors = req.flash('errors');
     if (errors.length) {
         res.render('register', {
-            errors: req.body.errors
+            errors
         });
     } else {
         req.flash('success_msg', 'Pomyślnie zarejestrowano, możesz się zalogować');
@@ -13,29 +13,22 @@ exports.signUp = (req, res) => {
     }
 };
 
-exports.signIn = (req, res, next) => {
-    const errors = req.body.errors;
+exports.signIn = (req, res) => {
+    const errors = req.flash('errors');
     if (errors.length) {
         res.render('login', {
-            errors: req.body.errors,
-            success_msg: req.flash('success_msg')
+            errors,
+            success_msg: ''
         });
     } else {
         const username = req.body.username;
-        const basket = [];
-        req.session.user = {
-            username,
-            basket
+        const basket = {
+            items: [],
+            numOfItems: 0,
+            totalPrice: 0
         };
-        let books = req.flash('booksCatalog');
-        if (books.length) {
-            res.render('home', {
-                username,
-                books
-            });
-        } else {
-            res.redirect('/');
-        }
+        req.session.user = { username, basket };
+        res.redirect('/');
     }
 };
 
@@ -50,19 +43,26 @@ exports.logOut = (req, res) => {
 };
 
 exports.basket = (req, res) => {
-    const basket = req.session.user.basket;
-    const username = req.session.user.username;
-    res.render('basket', {
-        basket,
-        username
-    });
+    if (req.session.user) {
+        const username = req.session.user.username;
+        const basket = req.session.user.basket;
+        res.render('basket', {
+            basket,
+            username
+        });
+    } else {
+        res.redirect('login');
+    }
+
 };
 
 exports.addToCart = (req, res) => {
     if (req.session.user) {
-        let id = req.params.id;
+        let id = req.params.id - 1;
         const books = req.flash('booksCatalog');
-        req.session.user.basket.push(books[id]);
+        req.session.user.basket.items.push(books[id]);
+        req.session.user.basket.numOfItems++;
+        req.session.user.basket.totalPrice += books[id].price;
         res.redirect('/');
     } else {
         res.redirect('/login');
@@ -86,27 +86,21 @@ exports.validateData = (req, res, next) => {
     } else if (password.length < 6) {
         errors.push('Hasło musi być dłuższe niż 6 znaków!');
     }
-    req.body.errors = errors;
+    if (errors.length) {
+        req.flash('errors', errors);
+    }
     next();
 };
 
 
 exports.search = (req, res, next) => {
-    var query = req.body.search;
-    let certainBooks = [];
-    let books = req.flash('booksCatalog');
+    const books = req.flash('certainBooks');
     let username = '';
     if (req.session.user) {
         username = req.session.user.username;
     }
-    books.forEach(book => {
-        if (book.title.includes(query) || book.author.includes(query) || book.genre.includes(query)) {
-            certainBooks.push(book);
-        }
-    });
-    req.flash('certainBooks', certainBooks);
     res.render('home', {
         username,
-        books: certainBooks
+        books
     });
 };

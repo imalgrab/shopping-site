@@ -14,6 +14,22 @@ exports.showUsers = (req, res) => {
     }
 };
 
+exports.showOrders = (req, res) => {
+    if (req.session.user) {
+        if (req.session.user.username == 'admin') {
+            const orders = req.flash('ordersCatalog');
+            res.render('orders', {
+                orders
+            });
+        }
+    } else {
+        res.render('login', {
+            success_msg: '',
+            errors: ['Nie masz uprawnień - zaloguj się jako administrator']
+        });
+    }
+};
+
 exports.addItem = (req, res) => {
     if (req.session.user) {
         if (req.session.user.username == 'admin') {

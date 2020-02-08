@@ -1,45 +1,58 @@
 html
     head
-        link(rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,700")
+        meta(charset="utf-8")
         link(rel="stylesheet" href="/css/main.css")
-        link(href="https://fonts.googleapis.com/css?family=Roboto+Mono&display=swap" rel="stylesheet")
-body
-    .navbar
-        ul
-            li
-                a(href='/').nav-elem.logo BookCamp |
-            li
-                a(href='/').nav-elem Home 
-            li
-                a(href='#').nav-elem About 
-            li
-                i.fas.fa-shopping-cart.nav-elem
-            .right
-                li
-                    a(href='login').nav-elem#active Login
-                li
-                    a(href='register').nav-elem Register 
-    h1 
-        | Logowanie
-    .wrapper
-        form(action="/login" method="post")  
-            table.loginPanel
-                if (success_msg.length)
-                    each msg in success_msg
+        link(rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,700")
+        link(rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Mono:300,400,700&display=swap")
+        script(crossorigin="anonymous" src="https://kit.fontawesome.com/224a92adf2.js")
+        script(src="/scripts/main.js")
+    body
+        .container
+            .logo
+                h1
+                    | book camp 
+                    i.fas.fa-fire
+            .navbar
+                ul
+                    li.active
+                        a(href='/')
+                            i.fas.fa-fire
+                    li
+                        a(href='/') Home 
+                    li
+                        a(href='#') About 
+
+                    .navbar-side
+                        li
+                            a(href="basket")
+                                i.fas.fa-shopping-cart
+                                |  Basket
+                        li.active
+                            a(href='login')
+                                i.fas.fa-user
+                                |  Login
+            .content
+                form(action="/login" method="post")  
+                    table.loginPanel
+                        if (errors.length)
+                            each error in errors
+                                tr
+                                    td
+                                        | #{error}
+                        if (success_msg.length)
+                            each msg in success_msg
+                                tr
+                                    td
+                                        | #{msg}
                         tr
                             td
-                                label.successLbl #{msg}
-                if (errors.length)
-                    each error in errors
+                                input#username(type='text' name='username' placeholder='nazwa użytkownika:')
                         tr
                             td
-                                label.errorLbl #{error}
-                tr
-                    td
-                        input.searchInput#username(type='text' name='username' placeholder='nazwa użytkownika:')
-                tr
-                    td
-                        input.searchInput#password(type='password' name='password' placeholder='hasło:')
-                tr
-                    td
-                        button.searchBtn#login(type='submit' name='login') zaloguj
+                                input#password(type='password' name='password' placeholder='hasło:')
+                        tr
+                            td
+                                button#login(type='submit' name='login') zaloguj
+                        tr
+                            td
+                                a(href="register") załóż konto

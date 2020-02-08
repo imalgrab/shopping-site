@@ -2,10 +2,10 @@ const pg = require('pg');
 const bcrypt = require('bcryptjs');
 
 exports.insertUser = (req, res, next) => {
-    const errors = req.body.errors;
+    const errors = req.flash('errors');
     if (errors.length) {
         res.render('register', {
-            errors: req.body.errors
+            errors
         });
     } else {
         const username = req.body.username;
@@ -25,7 +25,7 @@ exports.insertUser = (req, res, next) => {
             .then(res => {
                 if (res.rowCount > 0) {
                     errors.push(`Nazwa ${username} jest zajęta`);
-                    req.body.errors = errors;
+                    req.flash('errors', errors);
                     next();
                 } else {
                     const hash = bcrypt.hashSync(password, 8);
@@ -35,7 +35,6 @@ exports.insertUser = (req, res, next) => {
                         .catch(error => {
                             console.log(error);
                         });
-                    req.body.errors = errors;
                     next();
                 }
             })
@@ -87,7 +86,6 @@ exports.editItem = (req, res, next) => {
         .catch(error => {
             console.log(error);
         });
-    req.flash('success_msg', 'Pomyślnie edytowano przedmiot!');
     next();
 };
 
@@ -95,7 +93,6 @@ exports.validateUser = (req, res, next) => {
     const username = req.body.username;
     const password = req.body.password;
     let errors = [];
-
     const pool = new pg.Pool({
         host: 'localhost',
         port: 5432,
@@ -109,18 +106,50 @@ exports.validateUser = (req, res, next) => {
             if (res.rowCount > 0) {
                 const hash = res.rows[0].hash;
                 if (bcrypt.compareSync(password, hash)) {
-                    req.body.errors = errors;
                     next();
                 } else {
                     errors.push('Zła nazwa użytkownika lub hasło');
-                    req.body.errors = errors;
+                    req.flash('errors', errors);
                     next();
                 }
             } else {
                 errors.push(`Użytkownik ${username} nie istnieje`);
-                req.body.errors = errors;
+                req.flash('errors', errors);
                 next();
             }
+        })
+        .catch(error => {
+            console.log(error);
+        });
+};
+
+exports.getCertainItems = (req, res, next) => {
+    const phrase = req.body.search;
+    const pool = new pg.Pool({
+        host: 'localhost',
+        port: 5432,
+        database: 'ShopCatalog',
+        user: 'weppo',
+        password: 'weppo'
+    });
+    pool
+        .query(`SELECT * FROM books WHERE title LIKE '%${phrase}%' OR author LIKE '%${phrase}%' OR genre LIKE '%${phrase}%' ORDER BY id ASC`)
+        .then(res => {
+            let books = [];
+            res.rows.forEach(r => {
+                books.push({
+                    id: r.id,
+                    title: r.title,
+                    author: r.author,
+                    genre: r.genre,
+                    price: r.price,
+                    img: r.img
+                });
+            });
+            if (books.length) {
+                req.flash('certainBooks', books);
+            }
+            next();
         })
         .catch(error => {
             console.log(error);
@@ -141,6 +170,7 @@ exports.getItems = (req, res, next) => {
             let books = [];
             res.rows.forEach(r => {
                 books.push({
+                    id: r.id,
                     title: r.title,
                     author: r.author,
                     genre: r.genre,
@@ -155,7 +185,6 @@ exports.getItems = (req, res, next) => {
             console.log(error);
         });
 };
-
 
 exports.getUsers = (req, res, next) => {
     const pool = new pg.Pool({
@@ -181,4 +210,58 @@ exports.getUsers = (req, res, next) => {
         .catch(error => {
             console.log(error);
         });
+};
+
+exports.getOrders = (req, res, next) => {
+    const pool = new pg.Pool({
+        host: 'localhost',
+        port: 5432,
+        database: 'ShopCatalog',
+        user: 'weppo',
+        password: 'weppo'
+    });
+    pool
+        .query('SELECT * FROM orders')
+        .then(res => {
+            let orders = [];
+            res.rows.forEach(r => {
+                orders.push({
+                    id: r.id,
+                    name: r.name,
+                    bookids: r.bookids,
+                });
+            });
+            req.flash('ordersCatalog', orders);
+            next();
+        })
+        .catch(error => {
+            console.log(error);
+        });
+};
+
+exports.makeOrder = (req, res, next) => {
+    const booksToOrder = req.session.user.basket.items;
+    const username = req.session.user.username;
+    let booksToOrderIds = [];
+    booksToOrder.forEach(b => {
+        booksToOrderIds.push(b.id);
+    });
+
+    let booksIdsStr = booksToOrderIds.join(',');
+    booksIdsStr = 'ARRAY[' + booksIdsStr + ']';
+    const pool = new pg.Pool({
+        host: 'localhost',
+        port: 5432,
+        database: 'ShopCatalog',
+        user: 'weppo',
+        password: 'weppo'
+    });
+    pool
+        .query(`INSERT INTO orders (name, bookids) VALUES ('${username}', ${booksIdsStr} )`)
+        .then()
+        .catch(error => {
+            console.log(error);
+        });
+    req.session.user.basket.items = [];
+    res.redirect('/');
 };

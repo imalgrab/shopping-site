@@ -5,8 +5,7 @@ exports.home = (req, res) => {
     }
     res.render('home', {
         books: req.flash('booksCatalog'),
-        username,
-        success_msg: req.flash('success_add')
+        username
     });
 };
 
@@ -19,6 +18,6 @@ exports.register = (req, res) => {
 exports.login = (req, res) => {
     res.render('login', {
         errors: [],
-        success_msg: []
+        success_msg: ''
     });
 };

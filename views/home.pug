@@ -1,80 +1,75 @@
 html
     head
         meta(charset="utf-8")
-        link(rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,700")
-        link(href="https://fonts.googleapis.com/css?family=Roboto+Mono:300,400,700&display=swap" rel="stylesheet")
         link(rel="stylesheet" href="/css/main.css")
-        script(src="https://kit.fontawesome.com/224a92adf2.js" crossorigin="anonymous")
+        link(rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,700")
+        link(rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Mono:300,400,700&display=swap")
+        script(crossorigin="anonymous" src="https://kit.fontawesome.com/224a92adf2.js")
+        script(src="/scripts/main.js")
     body
-        .navbar
-            ul
-                li
-                    a(href='/').nav-elem.logo#active BookCamp
-                li
-                    | |
-                li
-                    a(href='/').nav-elem Home 
-                li
-                    a(href='#').nav-elem About 
-                li
-                    form(action="search" method="post")
-                        input.nav-elem.searchInput(type='text' name='search' placeholder='Search...')
-                        button.nav-elem.searchBtn(type='submit')
-                            i.fas.fa-search
-                if (username)
-                    .right
-                        li
-                            a(href="basket").nav-elem
-                                i.fas.fa-shopping-cart
-                        li
-                            a(href='logout').nav-elem Logout 
-                else
-                    .right
-                        li
-                            a(href='login').nav-elem Login
-                        li
-                            a(href='register').nav-elem Register 
-                if (username == "admin")
+        .container
+            .logo
+                h1
+                    | book camp 
+                    i.fas.fa-fire
+
+            .navbar
+                ul
+                    li.active
+                        a(href='/')
+                            i.fas.fa-fire
                     li
-                        select.adminDropDown(onchange=this.value)
-                            option(value="users") Lista użytkowników
-                            option(value="#") Lista zamówień
-                            option(value="additem") Dodaj przedmiot
-        .welcome
-            if (username)
-                | Witaj, #{username}!
-            if (success_msg)
-                |#{success_msg}
-        .wrapper
-            .bookshelf
+                        a(href='/') Home 
+                    li
+                        a(href='#') About 
+                    li
+                        form(action="search" method="post" name="search")
+                            input(type='text' name='search' placeholder='Search...')
+                            button(type='submit')
+                                i.fas.fa-search
+                    li
+                        if (username == 'admin')
+                            .dropdown
+                                button.dropBtn Admin
+                                    .dropdown-content
+                                        a(href="additem") Dodaj przedmiot
+                                        a(href="users") Użytkownicy
+                                        a(href="orders") Zamówienia
+                    .navbar-side
+                        li
+                            a(href="basket")
+                                i.fas.fa-shopping-cart
+                                |  Basket
+                        if (username)
+                            li
+                                a(href='logout') Logout 
+                        else
+                            li
+                                a(href='login')
+                                    i.fas.fa-user
+                                    |  Login
+            .content
                 if (books.length)
-                    - var i = 0;
                     each book in books
-                        ul.book-box
-                            li.book-container
-                                - var path = book.img;
-                                img(src=path width="100" heigth="100")
-                            li.book-container.book-title
+                        .product-container
+                            .product-property
+                                - var url = book.img;
+                                img(src=url)
+                            .product-property.title
                                 | #{book.title}
-                            li.book-container
+                            .product-property
                                 | #{book.author}
-                            li.book-container
+                            .product-property
                                 | #{book.genre}
-                            li.book-container
+                            .product-property
                                 | #{book.price} PLN
                             if (username == 'admin')
-                                li.book-container
-                                    a(href="editItem/" + i)
+                                .product-action
+                                    a(href="editItem/" + book.id)
                                         i.far.fa-edit
                             else
-                                li.book-container
-                                    a(href="addToCart/" + i)
+                                .product-action
+                                    a(href="addToCart/" + book.id)
                                         i.fas.fa-shopping-basket
-                        - i += 1
                 else
-                    h1
-                        | Brak wyników
-
-    foot
-        .wrapper
-            | © Maciek Okupnik, Igor Malgrab xd
+                    h1 Brak wyników

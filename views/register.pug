@@ -1,43 +1,57 @@
 html
     head
-        link(rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,700")
-        link(href="https://fonts.googleapis.com/css?family=Roboto+Mono&display=swap" rel="stylesheet")
+        meta(charset="utf-8")
         link(rel="stylesheet" href="/css/main.css")
+        link(rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,700")
+        link(rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Mono:300,400,700&display=swap")
+        script(crossorigin="anonymous" src="https://kit.fontawesome.com/224a92adf2.js")
+        script(src="/scripts/main.js")
     body
-        .navbar
-            ul
-                li
-                    a(href='/').nav-elem.logo BookCamp |
-                li
-                    a(href='/').nav-elem Home 
-                li
-                    a(href='#').nav-elem About 
-                li
-                    i.fas.fa-shopping-cart.nav-elem
-                .right
+        .container
+            .logo
+                h1
+                    | book camp 
+                    i.fas.fa-fire
+            .navbar
+                ul
+                    li.active
+                        a(href='/')
+                            i.fas.fa-fire
                     li
-                        a(href='login').nav-elem Login
+                        a(href='/') Home 
                     li
-                        a(href='register').nav-elem#active Register 
-        h1 
-            | Rejestracja
-            .wrapper
+                        a(href='#') About 
+
+                    .navbar-side
+                        li
+                            a(href="basket")
+                                i.fas.fa-shopping-cart
+                                |  Basket
+                        li
+                            a(href='login')
+                                i.fas.fa-user
+                                |  Login
+                        li.active
+                            a(href='register')
+                                |  Register
+            .content
                 form(action="/register" method="post")
                     table.loginPanel
-                        if (errors.length)
+                        if(errors.length)
                             each error in errors
                                 tr
                                     td
-                                        label.errorLbl #{error}
+                                        .infoLbl
+                                            | #{error}
                         tr
                             td
-                                input.searchInput#username(type='text' name='username' placeholder='nazwa użytkownika:')
+                                input#username(type='text' name='username' placeholder='nazwa użytkownika:')
                         tr
                             td
-                                input.searchInput#email(type='email' name='email' placeholder='adres e-mail:')
+                                input#email(type='email' name='email' placeholder='adres e-mail:')
                         tr
                             td
-                                input.searchInput#password(type='password' name='password' placeholder='hasło:')
+                                input#password(type='password' name='password' placeholder='hasło:')
                         tr
                             td
-                                button.searchBtn#register(type='submit' name='register') zarejestruj
+                                button#register(type='submit' name='register') zarejestruj
