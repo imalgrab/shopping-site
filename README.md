@@ -6,8 +6,8 @@ eCommerce page built with node.js using Express, PostgreSQL
 
 # instructions
   1. download/clone repo
-  2. npm install
-  3. npm start
+  2. `npm install`
+  3. `npm start`
   4. localhost:2115
   
 
