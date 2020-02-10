@@ -2,12 +2,11 @@ const pg = require('pg');
 const bcrypt = require('bcryptjs');
 
 const pool = new pg.Pool({
-    host: 'ec2-54-246-89-234.eu-west-1.compute.amazonaws.com',
+    host: 'localhost',
     port: 5432,
-    database: 'd78gm9kncmi5m7',
-    user: 'iuxsfwsvnbrnvi',
-    password: '8d04687c4aa6ed0497f24d8e2156d35a0a436bf14c86a55e3ce673aafe705627',
-    ssl: true
+    database: 'ShopCatalog',
+    user: 'weppo',
+    password: 'weppo'
 });
 
 exports.insertUser = (req, res, next) => {
