@@ -1,0 +1,314 @@
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 12.1
+-- Dumped by pg_dump version 12.1
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
+SET default_tablespace = '';
+
+SET default_table_access_method = heap;
+
+--
+-- Name: books; Type: TABLE; Schema: public; Owner: weppo
+--
+
+CREATE TABLE public.books (
+    id integer NOT NULL,
+    title character varying(100) NOT NULL,
+    author character varying(100) NOT NULL,
+    genre character varying(50) NOT NULL,
+    price double precision NOT NULL,
+    img character varying(200) NOT NULL
+);
+
+
+ALTER TABLE public.books OWNER TO weppo;
+
+--
+-- Name: books_id_seq; Type: SEQUENCE; Schema: public; Owner: weppo
+--
+
+CREATE SEQUENCE public.books_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.books_id_seq OWNER TO weppo;
+
+--
+-- Name: books_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: weppo
+--
+
+ALTER SEQUENCE public.books_id_seq OWNED BY public.books.id;
+
+
+--
+-- Name: orders; Type: TABLE; Schema: public; Owner: weppo
+--
+
+CREATE TABLE public.orders (
+    id integer NOT NULL,
+    name character varying(100) NOT NULL,
+    bookids integer[] NOT NULL
+);
+
+
+ALTER TABLE public.orders OWNER TO weppo;
+
+--
+-- Name: orders_id_seq; Type: SEQUENCE; Schema: public; Owner: weppo
+--
+
+CREATE SEQUENCE public.orders_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.orders_id_seq OWNER TO weppo;
+
+--
+-- Name: orders_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: weppo
+--
+
+ALTER SEQUENCE public.orders_id_seq OWNED BY public.orders.id;
+
+
+--
+-- Name: ordertest; Type: TABLE; Schema: public; Owner: weppo
+--
+
+CREATE TABLE public.ordertest (
+    id integer NOT NULL,
+    name character varying(100) NOT NULL,
+    bookids integer[] NOT NULL,
+    orderdate date NOT NULL
+);
+
+
+ALTER TABLE public.ordertest OWNER TO weppo;
+
+--
+-- Name: ordertest_id_seq; Type: SEQUENCE; Schema: public; Owner: weppo
+--
+
+CREATE SEQUENCE public.ordertest_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.ordertest_id_seq OWNER TO weppo;
+
+--
+-- Name: ordertest_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: weppo
+--
+
+ALTER SEQUENCE public.ordertest_id_seq OWNED BY public.ordertest.id;
+
+
+--
+-- Name: users; Type: TABLE; Schema: public; Owner: weppo
+--
+
+CREATE TABLE public.users (
+    id integer NOT NULL,
+    name character varying(50) NOT NULL,
+    email character varying(100) NOT NULL,
+    hash character varying(200) NOT NULL
+);
+
+
+ALTER TABLE public.users OWNER TO weppo;
+
+--
+-- Name: users_id_seq; Type: SEQUENCE; Schema: public; Owner: weppo
+--
+
+CREATE SEQUENCE public.users_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.users_id_seq OWNER TO weppo;
+
+--
+-- Name: users_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: weppo
+--
+
+ALTER SEQUENCE public.users_id_seq OWNED BY public.users.id;
+
+
+--
+-- Name: books id; Type: DEFAULT; Schema: public; Owner: weppo
+--
+
+ALTER TABLE ONLY public.books ALTER COLUMN id SET DEFAULT nextval('public.books_id_seq'::regclass);
+
+
+--
+-- Name: orders id; Type: DEFAULT; Schema: public; Owner: weppo
+--
+
+ALTER TABLE ONLY public.orders ALTER COLUMN id SET DEFAULT nextval('public.orders_id_seq'::regclass);
+
+
+--
+-- Name: ordertest id; Type: DEFAULT; Schema: public; Owner: weppo
+--
+
+ALTER TABLE ONLY public.ordertest ALTER COLUMN id SET DEFAULT nextval('public.ordertest_id_seq'::regclass);
+
+
+--
+-- Name: users id; Type: DEFAULT; Schema: public; Owner: weppo
+--
+
+ALTER TABLE ONLY public.users ALTER COLUMN id SET DEFAULT nextval('public.users_id_seq'::regclass);
+
+
+--
+-- Data for Name: books; Type: TABLE DATA; Schema: public; Owner: weppo
+--
+
+COPY public.books (id, title, author, genre, price, img) FROM stdin;
+1	Królestwo	Szczepan Twardoch	powieść historyczna	32.99	https://s.lubimyczytac.pl/upload/books/4863000/4863778/692496-352x500.jpg
+2	Club	Jonathan Clegg	sport	22.5	https://s.lubimyczytac.pl/upload/books/4893000/4893421/754067-352x500.jpg
+6	Krew Elfów	Andrzej Sapkowski	fantastyka	29.9	https://image.ceneostatic.pl/data/products/33143711/i-wiedzmin-3-krew-elfow.jpg
+8	Mężczyźni, którzy nienawidzą kobiet	Stieg Larsson	powieść kryminalna	39	https://s.lubimyczytac.pl/upload/books/27000/27644/352x500.jpg
+9	Dziewczyna, która igrała z ogniem	Stieg Larsson	powieść kryminalna	38.7	https://s.lubimyczytac.pl/upload/books/30000/30588/352x500.jpg
+7	Król	Szczepan Twardoch	powieść historyczna	33.3	https://s.lubimyczytac.pl/upload/books/313000/313308/511716-352x500.jpg
+10	Outsider	Stephen King	kryminał, sensacja, thriller	34.6	https://s.lubimyczytac.pl/upload/books/4847000/4847014/680642-352x500.jpg
+11	Ojciec Chrzestny	Mario Puzo	kryminał, sensacja, thriller	23.2	https://s.lubimyczytac.pl/upload/books/4811000/4811681/606526-352x500.jpg
+5	Miecz Przeznaczenia	Andrzej Sapkowski	fantastyka	29.9	https://image.ceneostatic.pl/data/products/32692743/i-wiedzmin-2-miecz-przeznaczenia.jpg
+4	Ostatnie Życzenie	Andrzej Sapkowski	fantastyka	29.9	https://image.ceneostatic.pl/data/products/32692858/i-wiedzmin-1-ostatnie-zyczenie.jpg
+3	Digital Minimalism	Cal Newport	rozwój osobisty	80.9	https://s.lubimyczytac.pl/upload/books/4883000/4883466/728705-352x500.jpg
+\.
+
+
+--
+-- Data for Name: orders; Type: TABLE DATA; Schema: public; Owner: weppo
+--
+
+COPY public.orders (id, name, bookids) FROM stdin;
+1	imalgrab	{1,7,8,9,11,10}
+2	imalgrab	{5,4,10,9}
+3	imalgrab	{4,5}
+4	imalgrab	{5,10,9,11,7}
+5	imalgrab	{3,4,5}
+\.
+
+
+--
+-- Data for Name: ordertest; Type: TABLE DATA; Schema: public; Owner: weppo
+--
+
+COPY public.ordertest (id, name, bookids, orderdate) FROM stdin;
+1	imalgrab	{7,1}	2020-02-08
+2	igorovsky	{1,2,3,4,5}	2020-02-03
+\.
+
+
+--
+-- Data for Name: users; Type: TABLE DATA; Schema: public; Owner: weppo
+--
+
+COPY public.users (id, name, email, hash) FROM stdin;
+1	admin	admin@admin.com	$2a$08$NwOYOF1tgm6iFwIraYEU3ev10vDx6AEtEnVrHF6p90mhZu4EYrCPe
+2	imalgrab	igormalgrab@gmail.com	$2a$08$EnMfmyfsS3BqUwPuLD8IMuMcVtPp5OkS0gbFy.ayrPlf5Am.eFw4K
+3	izajasz13	izajasz13@gmail.com	$2a$08$B3xio0MpD71T/yoBWkGJuuGDoFMQ14CR.XhC692DK288FAAFzw8wW
+4	macio	299760@uwr.edu	$2a$08$/ZibjLJfM364LcgHMYHCl./XCSaCa6Lpyz90A6GFrdJNyMKKFLmNG
+6	igorovsky	igorovsky@gmail.com	$2a$08$qRtkYCmXhgZfYXt1u2VXuOfbf2ravif.qhR.ioPMH19Omb5rblJ3G
+\.
+
+
+--
+-- Name: books_id_seq; Type: SEQUENCE SET; Schema: public; Owner: weppo
+--
+
+SELECT pg_catalog.setval('public.books_id_seq', 11, true);
+
+
+--
+-- Name: orders_id_seq; Type: SEQUENCE SET; Schema: public; Owner: weppo
+--
+
+SELECT pg_catalog.setval('public.orders_id_seq', 5, true);
+
+
+--
+-- Name: ordertest_id_seq; Type: SEQUENCE SET; Schema: public; Owner: weppo
+--
+
+SELECT pg_catalog.setval('public.ordertest_id_seq', 5, true);
+
+
+--
+-- Name: users_id_seq; Type: SEQUENCE SET; Schema: public; Owner: weppo
+--
+
+SELECT pg_catalog.setval('public.users_id_seq', 8, true);
+
+
+--
+-- Name: books books_pkey; Type: CONSTRAINT; Schema: public; Owner: weppo
+--
+
+ALTER TABLE ONLY public.books
+    ADD CONSTRAINT books_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: orders orders_pkey; Type: CONSTRAINT; Schema: public; Owner: weppo
+--
+
+ALTER TABLE ONLY public.orders
+    ADD CONSTRAINT orders_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: ordertest ordertest_pkey; Type: CONSTRAINT; Schema: public; Owner: weppo
+--
+
+ALTER TABLE ONLY public.ordertest
+    ADD CONSTRAINT ordertest_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: users users_pkey; Type: CONSTRAINT; Schema: public; Owner: weppo
+--
+
+ALTER TABLE ONLY public.users
+    ADD CONSTRAINT users_pkey PRIMARY KEY (id);
+
+
+--
+-- PostgreSQL database dump complete
+--
+
