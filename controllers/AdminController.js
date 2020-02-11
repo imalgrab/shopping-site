@@ -52,9 +52,9 @@ exports.addItem = (req, res) => {
 exports.editItem = (req, res) => {
     if (req.session.user) {
         if (req.session.user.username == 'admin') {
-            let id = req.params.id - 1;
+            let id = req.params.id;
             const books = req.flash('booksCatalog');
-            const book = books[id];
+            const book = books[id - 1]; //id-1 because array indexes start with 0
             res.render('edititem', {
                 book,
                 id

@@ -15,8 +15,7 @@ html
                 li
                     a(href='#').nav-elem Admin panel 
         .wrapper
-            - var new_id = id - 1;
-            form(action="/editItem/" + new_id method="post")
+            form(action="/editItem/" + id method="post")
                 table.loginPanel
                     th
                         | Edytuj książkę:

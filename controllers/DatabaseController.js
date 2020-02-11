@@ -34,7 +34,7 @@ exports.insertUser = (req, res, next) => {
                     pool
                         .query(`INSERT INTO users (name, email, hash) values ('${username}', '${email}', '${hash}')`)
                         .then()
-                        .catch(error => {
+                        .tch(error => {
                             console.log(error);
                         });
                     next();
@@ -62,7 +62,7 @@ exports.insertItem = (req, res, next) => {
 };
 
 exports.editItem = (req, res, next) => {
-    const id = parseInt(req.params.id) + 1;
+    const id = parseInt(req.params.id);
     let title = req.body.title;
     let author = req.body.author;
     let genre = req.body.genre;
