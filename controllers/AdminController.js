@@ -52,10 +52,9 @@ exports.addItem = (req, res) => {
 exports.editItem = (req, res) => {
     if (req.session.user) {
         if (req.session.user.username == 'admin') {
-            let id = req.params.id;
+            let id = req.params.id - 1;
             const books = req.flash('booksCatalog');
             const book = books[id];
-            id++;
             res.render('edititem', {
                 book,
                 id
