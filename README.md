@@ -13,6 +13,6 @@ cd shopping-site/
 npm install
 npm start
 ```
-and finally navigate to `localhost:3000/`
+and finally navigate to `localhost:2115/`
 
 *happy hacking!*
