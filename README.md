@@ -1,5 +1,18 @@
-# eCommerce-solution
-eCommerce page built with node.js using Express, PostgreSQL
+## online-store-like app
+app built with node.js using Express and PostgreSQL
 
-The app is live here:
-https://weppo-shop-test.herokuapp.com
+Click [here](https://weppo-shop-test.herokuapp.com) for live experience
+
+If, however, you want to check it locally I highly recommend to:
+```
+git clone ...
+```
+then
+```
+cd shopping-site/
+npm install
+npm start
+```
+and finally navigate to `localhost:3000/`
+
+*happy hacking!*
